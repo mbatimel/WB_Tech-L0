@@ -1,5 +1,5 @@
 
-CREATE TABLE orders (
+CREATE IF NOT EXISTS TABLE orders (
     order_uid VARCHAR(255) PRIMARY KEY,
     track_number VARCHAR(255),
     entry VARCHAR(255),
@@ -14,7 +14,7 @@ CREATE TABLE orders (
 );
 
 
-CREATE TABLE delivery (
+CREATE IF NOT EXISTS TABLE delivery (
     order_uid VARCHAR(255) PRIMARY KEY REFERENCES orders(order_uid),
     name VARCHAR(255),
     phone VARCHAR(255),
@@ -26,7 +26,7 @@ CREATE TABLE delivery (
 );
 
 
-CREATE TABLE payment (
+CREATE IF NOT EXISTS TABLE payment (
     order_uid VARCHAR(255) PRIMARY KEY REFERENCES orders(order_uid),
     transaction VARCHAR(255),
     request_id VARCHAR(255),
@@ -41,7 +41,7 @@ CREATE TABLE payment (
 );
 
 
-CREATE TABLE items (
+CREATE IF NOT EXISTS TABLE items (
     order_uid VARCHAR(255) REFERENCES orders(order_uid),
     chrt_id INT,
     track_number VARCHAR(255),

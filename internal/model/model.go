@@ -1,6 +1,6 @@
-package data
+package model
 
-import "Time"
+import "time"
 
 type Payment struct {
 	Transaction   string `json:"transaction"`
