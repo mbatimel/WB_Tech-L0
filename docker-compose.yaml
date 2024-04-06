@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  postgres:
+    
+    image: postgres:15
+    environment:
+      POSTGRES_DB: "WB_developer"
+      POSTGRES_USER: "mbatimel"
+      POSTGRES_PASSWORD: "wb_il"
+    ports:
+      - "5432:5432"
+  
+  nats-streaming:
+    container_name: nats-streaming
+    image: nats-streaming
+    ports:
+      - 4222:4222
+      - 8222:8222
+      
