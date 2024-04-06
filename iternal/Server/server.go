@@ -10,7 +10,7 @@ type Server struct {
 	sub stan.Subscription
 }
 
-func (s * Server) Up() error {
+func (s *Server) Up() error {
 	sc, err := stan.Connect("test-cluster", "subscriber", stan.NatsURL("nats://localhost:4222"))
 	if err != nil {
 		return err

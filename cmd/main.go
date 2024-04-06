@@ -10,7 +10,8 @@ import (
 )
 
 func main() {
-	if err := server.Up(); err != nil {
-		panic(err)
-	}
+    srv := server.Server{}
+    if err := srv.Up(); err != nil {
+        panic(err)
+    }
 }
