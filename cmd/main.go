@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
-	"iternalship_go/L0/iternal/Server/server"
+	"github.com/mbatimel/WB_Tech-L0/iternal/data"
+	"github.com/mbatimel/WB_Tech-L0/iternal/server"
+	"github.com/mbatimel/WB_Tech-L0/iternal/migrate"
 )
 func main() {
 }
