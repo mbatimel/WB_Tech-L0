@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/go-chi/chi"
 	"github.com/mbatimel/WB_Tech-L0/internal/config"
 	"github.com/mbatimel/WB_Tech-L0/internal/model"
 	"github.com/mbatimel/WB_Tech-L0/internal/repo"
@@ -17,6 +18,7 @@ type Server struct {
 	sub stan.Subscription
 	svconf *config.ServerConfig
 	db *repo.DataBase
+	router *chi.Mux
 
 }
 
@@ -52,14 +54,20 @@ func NewServer(path string) (*Server, error) {
 		svconf: svconf,
 		db : db,
 		cache:  make(map[string]model.Order),
+		router: chi.NewRouter(),
 
 	}, nil
 }
 func (s *Server) Up() error {
+	s.db.ConnectToDatabase()
+	logrus.Info("Connecting to database")
+	if err := s.setCache(); err != nil {
+		return err
+	}
 	if err := s.connectToNats(); err != nil {
 		return err
 	}
-	
+	s.startRouting()
 	return nil
 }
 func (s *Server) handleRequest(m *stan.Msg) {
@@ -91,4 +99,15 @@ func (s *Server) Down() {
 	s.db.Close()
 	s.sub.Unsubscribe()
 	s.sc.Close()
+}
+func (s *Server)setCache() error {
+	orders := make([]model.Order, 0)
+	err := s.db.DB.Model(&orders).Select()
+	if err != nil {
+		return err
+	}
+	for _, order := range orders {
+		s.cache[order.OrderUid] = order
+	}
+	return nil
 }

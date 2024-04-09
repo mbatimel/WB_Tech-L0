@@ -26,3 +26,11 @@ func (db *DataBase) AddOrder(data model.Order) error {
 func (db *DataBase) Close(){
 	db.DB.Close()
 }
+
+func(db *DataBase)ConnectToDatabase(){
+	db.DB =pg.Connect(&pg.Options{
+		User: db.config.User,
+		Password: db.config.Password,
+		Database: db.config.Database,
+	})
+}
