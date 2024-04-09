@@ -7,8 +7,12 @@ import (
 )
 
 func main() {
-	srv := server.Server{}
-	if err := srv.Up(); err != nil {
+	
+	server, err := server.NewServer("config/config.yaml")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	if err := server.Up(); err != nil {
 		log.Fatalln(err)
 	}
 }

@@ -1,6 +1,6 @@
 package config
 
 type Config struct {
-	Server Server `yaml:"server"`
+	Server ServerConfig `yaml:"server"`
 	Repo   Repo   `yaml:"repo"`
 }
