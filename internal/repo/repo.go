@@ -1,7 +1,7 @@
 package repo
 
 import (
-	"github.com/go-pg/pg/v10"
+	"github.com/go-pg/pg"
 	"github.com/mbatimel/WB_Tech-L0/internal/config"
 	"github.com/mbatimel/WB_Tech-L0/internal/model"
 )

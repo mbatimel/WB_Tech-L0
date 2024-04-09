@@ -7,6 +7,7 @@ require github.com/nats-io/stan.go v0.10.4
 require (
 	github.com/go-chi/chi v1.5.5
 	github.com/go-chi/chi/v5 v5.0.12
+	github.com/go-pg/pg v8.0.7+incompatible
 	github.com/go-pg/pg/v10 v10.12.0 // indirect
 	github.com/go-pg/zerochecker v0.2.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
