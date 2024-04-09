@@ -3,6 +3,7 @@ package repo
 import (
 	"github.com/go-pg/pg/v10"
 	"github.com/mbatimel/WB_Tech-L0/internal/config"
+	"github.com/mbatimel/WB_Tech-L0/internal/model"
 )
 type DataBase struct {
 	DB *pg.DB
@@ -14,4 +15,14 @@ func SetConfigs(path string) (*DataBase, error) {
 	return nil, err
  }
  return &DataBase{nil, config}, nil
+}
+
+func (db *DataBase) AddOrder(data model.Order) error {
+ if _, err := db.DB.Model(&data).Insert(); err != nil {
+	return err
+ }
+ return nil
+}
+func (db *DataBase) Close(){
+	db.DB.Close()
 }

@@ -5,10 +5,14 @@ import (
 	"log"
 
 	"github.com/mbatimel/WB_Tech-L0/internal/config"
+	"github.com/mbatimel/WB_Tech-L0/internal/model"
 	"github.com/mbatimel/WB_Tech-L0/internal/repo"
 	"github.com/nats-io/stan.go"
+	"github.com/sirupsen/logrus"
+	"gopkg.in/yaml.v3"
 )
 type Server struct {
+	cache map[string]model.Order
 	sc  stan.Conn
 	sub stan.Subscription
 	svconf *config.ServerConfig
@@ -32,9 +36,7 @@ func (s *Server) connectToNats() error {
 	if err != nil {
 		return err
 	}
-	sub, err := sc.Subscribe(s.svconf.SubscribeSubject, func(m *stan.Msg) {
-		fmt.Printf("Received a message: %s\n", string(m.Data))
-	})
+	sub, err := sc.Subscribe(s.svconf.SubscribeSubject, s.handleRequest)
 	if err != nil {
 		return err
 	}
@@ -49,6 +51,7 @@ func NewServer(path string) (*Server, error) {
 	return &Server{
 		svconf: svconf,
 		db : db,
+		cache:  make(map[string]model.Order),
 
 	}, nil
 }
@@ -58,4 +61,34 @@ func (s *Server) Up() error {
 	}
 	
 	return nil
+}
+func (s *Server) handleRequest(m *stan.Msg) {
+ data := model.Order{}
+ err := yaml.Unmarshal(m.Data, &data)
+	if err != nil {
+		return
+	}
+	if ok := s.addToCache(data); ok {
+		logrus.Info("Add to cache")
+		s.db.AddOrder(data)
+	}
+}
+func (s *Server) addToCache(data model.Order) bool {
+	_, ok := s.cache[data.OrderUid]
+	if ok {
+		return false
+	}
+	s.cache[data.OrderUid] = data
+	for key := range s.cache {
+		fmt.Printf("%s ", key)
+	}
+	fmt.Println()
+	return true
+}
+
+func (s *Server) Down() {
+	logrus.Info("Server is down")
+	s.db.Close()
+	s.sub.Unsubscribe()
+	s.sc.Close()
 }
