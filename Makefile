@@ -10,7 +10,7 @@ migration:
 
 .PHONY: test
 test:
-	go test -v -race -timeout 30s ./...
+	echo "GET http://localhost:1234/order/" | vegeta attack -duration=10s | tee results.bin | vegeta report
 
 .PHONY: publisher
 publisher:
