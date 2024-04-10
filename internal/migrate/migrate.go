@@ -10,9 +10,6 @@ import (
 func CreateSchema(db *repo.DataBase) error {
 	models := []interface{}{
 		(*model.Order)(nil),
-		(*model.Delivery)(nil),
-		(*model.Items)(nil),
-		(*model.Payment)(nil),
 	}
 	for _, model := range models {
 		op := orm.CreateTableOptions{}

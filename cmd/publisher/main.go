@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-
 	"github.com/nats-io/stan.go"
 )
 
 func main() {
-	sc, err := stan.Connect("test-cluster", "subscriber", stan.NatsURL("nats://localhost:4222"))
+	sc, err := stan.Connect("test-cluster", "publisher", stan.NatsURL("nats://localhost:4222"))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -21,9 +20,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	err = sc.Publish("addNewOrder", b)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	sc.Publish("addNewOrder", b)
 	
 }

@@ -1,14 +1,27 @@
-up:
-	docker-compose up --build
+.PHONY: server
+server:
+	go build -v ./cmd/server
+	./server
 
+.PHONY: migration
+migration:
+	go build -v ./cmd/migration
+	./migration
+
+.PHONY: test
+test:
+	go test -v -race -timeout 30s ./...
+
+.PHONY: publisher
+publisher:
+	go build -v ./cmd/publisher
+
+.PHONY: up
+up:
+	docker-compose up -d
+
+.PHONY: down
 down:
 	docker-compose down
 
-server:
-	go run cmd/server/main.go
-
-migration:
-	go run cmd/migration/main.go
-
-publish:
-	go run cmd/publisher/main.go
+.DEFAULT_GOAL := build
