@@ -12,9 +12,9 @@ import (
 
 func (s *Server)startRouting(){
 	s.router.Use(middleware.Logger)
-	s.router.Get("/model/{order_uid}", s.handleGetId)
-	address := fmt.Sprintf("%s%s", s.svconf.Host, s.svconf.Port)
-	str := fmt.Sprintf("Server is up on %s%s", s.svconf.Host, s.svconf.Port)
+	s.router.Get("/order/{order_uid}", s.handleGetId)
+	address := fmt.Sprintf("%s:%s", s.svconf.Host, s.svconf.Port)
+	str := fmt.Sprintf("Server is up on %s:%s", s.svconf.Host, s.svconf.Port)
 	logrus.Info(str)
 	http.ListenAndServe(address, s.router)
 	

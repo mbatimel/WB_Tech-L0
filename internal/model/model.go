@@ -3,29 +3,29 @@ package model
 import "time"
 
 type Payment struct {
-	Transaction   string `json:"transaction"`
-	Request_id    string `json:"request_id"`
-	Curency       string `json:"curency"`
-	Provider      string `json:"provider"`
-	Amount        int    `json:"amount"`
-	Payment_dt    int    `json:"payment_dt"`
-	Banck         string `json:"banck"`
-	Delivery_cost int    `json:"delivery_cost"`
-	Goods_total   int    `json:"goods_total"`
-	Custom_free   int    `json:"custom_free"`
+	Transaction  string `json:"transaction"`
+	RequestId    string `json:"request_id"`
+	Currency     string `json:"currency"`
+	Provider     string `json:"provider"`
+	Amount       int    `json:"amount"`
+	PaymentDt    int    `json:"payment_dt"`
+	Bank         string `json:"bank"`
+	DeliveryCost int    `json:"delivery_cost"`
+	GoodsTotal   int    `json:"goods_total"`
+	CustomFee    int    `json:"custom_fee"`
 }
-type Items struct {
-	Chtr_id      int    `json:"chtr_id"`
-	Track_number string `json:"track_number"`
-	Price        int    `json:"price"`
-	Rid          string `json:"rid"`
-	Name         string `json:"name"`
-	Sale         int    `json:"sale"`
-	Size         int    `json:"size"`
-	Total_price  int    `json:"total_size"`
-	Nm_id        int    `json:"nm_id"`
-	Brand        string `json:"brand"`
-	Status       int    `json:"status"`
+type Item struct {
+	ChrtId      int    `json:"chrt_id"`
+	TrackNumber string `json:"track_number"`
+	Price       int    `json:"price"`
+	Rid         string `json:"rid"`
+	Name        string `json:"name"`
+	Sale        int    `json:"sale"`
+	Size        string `json:"size"`
+	TotalPrice  int    `json:"total_price"`
+	NmId        int    `json:"nm_id"`
+	Brand       string `json:"brand"`
+	Status      int    `json:"status"`
 }
 type Delivery struct {
 	Name    string `json:"name"`
@@ -37,13 +37,12 @@ type Delivery struct {
 	Email   string `json:"email"`
 }
 type Order struct {
-	Id                int
 	OrderUid          string    `json:"order_uid"`
 	TrackNumber       string    `json:"track_number"`
 	Entry             string    `json:"entry"`
 	Delivery          Delivery  `json:"delivery"`
 	Payment           Payment   `json:"payment"`
-	Items             []Items   `json:"items"`
+	Items             []Item    `json:"items"`
 	Locale            string    `json:"locale"`
 	InternalSignature string    `json:"internal_signature"`
 	CustomerId        string    `json:"customer_id"`

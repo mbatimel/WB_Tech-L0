@@ -1,7 +1,7 @@
 server:
-    host: "127.0.0.1"
-    port: ":1234"
-    subscribe_subject : wb_sub
+    host: 127.0.0.1
+    port: 1234
+    subscribe_subject : addNewOrder
 
 repo:
     database: WB_developer

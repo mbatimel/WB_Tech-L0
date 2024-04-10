@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 
@@ -10,7 +11,6 @@ import (
 	"github.com/mbatimel/WB_Tech-L0/internal/repo"
 	"github.com/nats-io/stan.go"
 	"github.com/sirupsen/logrus"
-	"gopkg.in/yaml.v3"
 )
 type Server struct {
 	cache map[string]model.Order
@@ -72,9 +72,9 @@ func (s *Server) Up() error {
 }
 func (s *Server) handleRequest(m *stan.Msg) {
  data := model.Order{}
- err := yaml.Unmarshal(m.Data, &data)
+ err := json.Unmarshal(m.Data, &data)
 	if err != nil {
-		return
+		logrus.Info(err)
 	}
 	if ok := s.addToCache(data); ok {
 		logrus.Info("Add to cache")
