@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/mbatimel/WB_Tech-L0/internal/config"
 	"github.com/mbatimel/WB_Tech-L0/internal/model"
 	"github.com/mbatimel/WB_Tech-L0/internal/repo"

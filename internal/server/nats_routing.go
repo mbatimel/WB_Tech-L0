@@ -1,10 +1,9 @@
 package server
 
 import (
-	"gopkg.in/yaml.v3"
+	"encoding/json"
 	"fmt"
 	"net/http"
-
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/sirupsen/logrus"
@@ -28,9 +27,9 @@ func (s *Server)handleGetId(w http.ResponseWriter, r *http.Request){
 		w.Write([]byte("Something went wrong"))
 		return
 	}
-	b, err := yaml.Marshal(data)
+	b, err := json.Marshal(data)
 	if err != nil {
-		return
+		logrus.Info(err)
 	}
 	w.Write(b)
 }
