@@ -7,8 +7,8 @@ down:
 server:
 	go run cmd/server/main.go
 
-migrations:
+migration:
 	go run cmd/migration/main.go
 
 publish:
-	go run cmd/publish/main.go
+	go run cmd/publisher/main.go
